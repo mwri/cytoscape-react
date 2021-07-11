@@ -1,0 +1,41 @@
+{
+  "name": "cytoscape-react",
+  "version": "1.0.0",
+  "description": "Cytoscape react component",
+  "keywords": [
+    "cytoscape",
+    "react"
+  ],
+  "author": {
+    "name": "Michael Wright",
+    "email": "mjw@methodanalysis.com"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "url": "https://github.com/mwri/cytoscape-react",
+  "scripts": {
+    "prepublishOnly": "./node_modules/grunt-cli/bin/grunt prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwri/cytoscape-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mwri/cytoscape-react/issues"
+  },
+  "homepage": "https://github.com/mwri/cytoscape-react#readme",
+  "peerDependencies": {
+    "cytoscape": "^3.19.0"
+  },
+  "dependencies": {
+    "cytoscape-dom-node": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-git": "^1.0.14",
+    "load-grunt-tasks": "^5.1.0"
+  }
+}
