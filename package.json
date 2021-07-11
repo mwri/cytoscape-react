@@ -28,7 +28,7 @@
     "cytoscape": "^3.19.0"
   },
   "dependencies": {
-    "cytoscape-dom-node": "^1.0.0",
+    "cytoscape-dom-node": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
