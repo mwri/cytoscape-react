@@ -37,5 +37,10 @@
     "grunt-cli": "^1.4.3",
     "grunt-git": "^1.0.14",
     "load-grunt-tasks": "^5.1.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
   }
 }
