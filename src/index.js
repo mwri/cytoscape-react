@@ -1,9 +1,9 @@
-const GraphWrapper = require('./graph_wrapper.js').GraphWrapper;
-const NodeWrapper  = require('./node_wrapper.js').NodeWrapper;
-const EdgeWrapper  = require('./edge_wrapper.js').EdgeWrapper;
-const Graph        = require('./graph.js').Graph;
-const Node         = require('./node.js').Node;
-const Edge         = require('./edge.js').Edge;
+const GraphWrapper = require('./graph_wrapper.jsx').GraphWrapper;
+const NodeWrapper  = require('./node_wrapper.jsx').NodeWrapper;
+const EdgeWrapper  = require('./edge_wrapper.jsx').EdgeWrapper;
+const Graph        = require('./graph.jsx').Graph;
+const Node         = require('./node.jsx').Node;
+const Edge         = require('./edge.jsx').Edge;
 
 
 module.exports = {
