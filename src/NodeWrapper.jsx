@@ -1,5 +1,5 @@
-const React     = require('react');
-const ReactDOM  = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom'
 
 
 class NodeWrapper extends React.Component {
@@ -39,6 +39,4 @@ class NodeWrapper extends React.Component {
 }
 
 
-module.exports = {
-    'NodeWrapper': NodeWrapper,
-};
+export default NodeWrapper;

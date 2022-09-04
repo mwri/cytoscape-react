@@ -1,5 +1,4 @@
-const React     = require('react');
-const ReactDOM  = require('react-dom');
+import React from 'react';
 
 
 class EdgeWrapper extends React.Component {
@@ -78,6 +77,4 @@ class EdgeWrapper extends React.Component {
 }
 
 
-module.exports = {
-    'EdgeWrapper': EdgeWrapper,
-};
+export default EdgeWrapper;

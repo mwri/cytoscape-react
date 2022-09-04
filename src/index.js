@@ -1,16 +1,16 @@
-const GraphWrapper = require('./graph_wrapper.jsx').GraphWrapper;
-const NodeWrapper  = require('./node_wrapper.jsx').NodeWrapper;
-const EdgeWrapper  = require('./edge_wrapper.jsx').EdgeWrapper;
-const Graph        = require('./graph.jsx').Graph;
-const Node         = require('./node.jsx').Node;
-const Edge         = require('./edge.jsx').Edge;
+import GraphWrapper from './GraphWrapper';
+import NodeWrapper from './NodeWrapper';
+import EdgeWrapper from './EdgeWrapper';
+import Graph from './Graph';
+import Node from './Node';
+import Edge from './Edge';
 
 
-module.exports = {
-    'GraphWrapper': GraphWrapper,
-    'NodeWrapper':  NodeWrapper,
-    'EdgeWrapper':  EdgeWrapper,
-    'Graph':        Graph,
-    'Node':         Node,
-    'Edge':         Edge,
+export {
+    GraphWrapper,
+    NodeWrapper,
+    EdgeWrapper,
+    Graph,
+    Node,
+    Edge,
 };
