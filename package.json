@@ -11,10 +11,12 @@
     "email": "mjw@methodanalysis.com"
   },
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "url": "https://github.com/mwri/cytoscape-react",
   "scripts": {
-    "prepublishOnly": "./node_modules/grunt-cli/bin/grunt prepublish"
+    "prepublishOnly": "./node_modules/grunt-cli/bin/grunt prepublish",
+    "build": "NODE_ENV=production babel src --out-dir dist --copy-files"
   },
   "repository": {
     "type": "git",
