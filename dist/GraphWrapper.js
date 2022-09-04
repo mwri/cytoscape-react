@@ -52,8 +52,8 @@ class GraphWrapper extends _react.default.Component {
     let state = this.state;
     let nodes_and_edges = state.cy ? _react.default.Children.map(this.props.children, c => /*#__PURE__*/_react.default.cloneElement(c, {
       'cy': state.cy,
-      '_cdm_cb': this.graphElementDidMount.bind(this),
-      '_cdu_cb': this.graphElementDidUpdate.bind(this)
+      'cdm_cb': this.graphElementDidMount.bind(this),
+      'cdu_cb': this.graphElementDidUpdate.bind(this)
     })) : [];
     return /*#__PURE__*/_react.default.createElement("div", {
       ref: this._wrapper
