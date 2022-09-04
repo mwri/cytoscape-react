@@ -39,8 +39,8 @@ class GraphWrapper extends React.Component {
         let nodes_and_edges = state.cy
             ? React.Children.map(this.props.children, (c) => React.cloneElement(c, {
                     'cy':      state.cy,
-                    '_cdm_cb': this.graphElementDidMount.bind(this),
-                    '_cdu_cb': this.graphElementDidUpdate.bind(this),
+                    'cdm_cb': this.graphElementDidMount.bind(this),
+                    'cdu_cb': this.graphElementDidUpdate.bind(this),
                 }))
             : [];
 
