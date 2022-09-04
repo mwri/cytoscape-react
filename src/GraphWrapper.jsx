@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import Cytoscape from 'cytoscape';
 import CyDomNode from 'cytoscape-dom-node';
 
@@ -12,13 +11,14 @@ class GraphWrapper extends React.Component {
         super();
 
         this.state = {'cy': null};
+        this._wrapper = React.createRef();
     }
 
     componentDidMount () {
         let props = this.props;
 
         let cy_params = Object.assign({
-            'container': ReactDOM.findDOMNode(this).querySelector('.cytoscape-react-cy-container'),
+            'container': this._wrapper.current.querySelector('.cytoscape-react-cy-container'),
             'style': [{
                 'selector': 'node',
                 'style':    {'background-opacity': 0, 'shape': 'rectangle'},
@@ -26,7 +26,7 @@ class GraphWrapper extends React.Component {
         }, props.cy_params || {});
 
         let cy = Cytoscape(cy_params);
-        cy.domNode({'dom_container': ReactDOM.findDOMNode(this).querySelector('.cytoscape-react-nodes-and-edges')});
+        cy.domNode({'dom_container': this._wrapper.current.querySelector('.cytoscape-react-nodes-and-edges')});
 
         this.setState({'cy': cy});
 
@@ -37,7 +37,7 @@ class GraphWrapper extends React.Component {
         let state = this.state;
 
         let nodes_and_edges = state.cy
-            ? this.props.children.map((c) => React.cloneElement(c, {
+            ? React.Children.map((c) => React.cloneElement(c, {
                     'cy':      state.cy,
                     '_cdm_cb': this.graphElementDidMount.bind(this),
                     '_cdu_cb': this.graphElementDidUpdate.bind(this),
@@ -45,7 +45,7 @@ class GraphWrapper extends React.Component {
             : [];
 
         return (
-            <div>
+            <div ref={this._wrapper}>
                 <div className="cytoscape-react-cy-container">
                     <div className="cytoscape-react-nodes-and-edges">
                         {nodes_and_edges}

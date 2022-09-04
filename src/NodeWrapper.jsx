@@ -1,8 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 
 
 class NodeWrapper extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this._wrapper = React.createRef();
+    }
+
     componentDidMount () {
         let props = this.props;
 
@@ -24,14 +29,14 @@ class NodeWrapper extends React.Component {
             return;
 
         if (props.cy.getElementById(props.id).length === 0)
-            props.cy.add({'data': Object.assign({}, props, {'dom': ReactDOM.findDOMNode(this)})});
+            props.cy.add({'data': Object.assign({}, props, {'dom': this._wrapper.current})});
     }
 
     render () {
         let props = this.props;
 
         return (
-            <div className="cytoscape-react-node">
+            <div ref={this._wrapper} className="cytoscape-react-node">
                 {props.children ? React.cloneElement(props.children, props) : null}
             </div>
         );
