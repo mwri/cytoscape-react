@@ -27,14 +27,16 @@
   },
   "homepage": "https://github.com/mwri/cytoscape-react#readme",
   "peerDependencies": {
-    "cytoscape": "^3.19.0"
+    "cytoscape": "^3.19.0",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "cytoscape-dom-node": "^1.1.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "core-js": "^3.25.0",
-    "cytoscape-dom-node": "^1.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",

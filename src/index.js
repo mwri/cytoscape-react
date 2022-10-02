@@ -1,16 +1,9 @@
-import GraphWrapper from './GraphWrapper';
-import NodeWrapper from './NodeWrapper';
-import EdgeWrapper from './EdgeWrapper';
+import Edge from './Edge';
 import Graph from './Graph';
 import Node from './Node';
-import Edge from './Edge';
-
 
 export {
-    GraphWrapper,
-    NodeWrapper,
-    EdgeWrapper,
+    Edge,
     Graph,
     Node,
-    Edge,
 };
