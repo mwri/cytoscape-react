@@ -16,7 +16,10 @@
   "url": "https://github.com/mwri/cytoscape-react",
   "scripts": {
     "prepublishOnly": "./node_modules/grunt-cli/bin/grunt prepublish",
-    "build": "NODE_ENV=production babel src --out-dir dist --copy-files"
+    "build": "NODE_ENV=production babel src --out-dir dist --copy-files",
+    "lint": "eslint src --ext .jsx,.js --max-warnings=0",
+    "format": "eslint --fix src --ext .jsx,.js",
+    "jsdoc": "jsdoc -d docs -r src"
   },
   "repository": {
     "type": "git",
@@ -27,23 +30,31 @@
   },
   "homepage": "https://github.com/mwri/cytoscape-react#readme",
   "peerDependencies": {
-    "cytoscape": "^3.19.0"
+    "cytoscape": "^3.19.0",
+    "cytoscape-dom-node": "^1.1.0",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "core-js": "^3.25.0",
-    "cytoscape-dom-node": "^1.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.9.4",
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
     "grunt": "^1.5.3",
     "grunt-cli": "^1.4.3",
     "grunt-git": "^1.1.1",
+    "jsdoc": "^3.6.11",
     "load-grunt-tasks": "^5.1.0"
   }
 }

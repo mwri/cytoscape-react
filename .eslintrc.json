@@ -1,0 +1,36 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:jsdoc/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "simple-import-sort",
+        "jsdoc"
+    ],
+    "rules": {
+        "indent": ["error", 4],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "max-len": ["error", {"code": 120}],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "react/prop-types": "warn",
+        "no-unused-vars": "warn",
+        "jsdoc/check-tag-names": ["error", { "definedTags": ["component"] }],
+        "jsdoc/require-jsdoc": ["error", {"publicOnly": true}],
+        "jsdoc/require-param": "off"
+    }
+}

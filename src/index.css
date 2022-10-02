@@ -1,0 +1,4 @@
+.cytoscape-react-nodes-and-edges {
+    position: absolute;
+    z-index: 10;
+}
