@@ -2,20 +2,3 @@
     position: absolute;
     z-index: 10;
 }
-
-.cytoscape-dom-edge {
-    position: absolute;
-
-}
-
-.cytoscape-dom-node {
-    position: absolute;
-    z-index: 10;
-}
-
-.cytoscape-react-cy-container {
-}
-
-.cytoscape-react-node-default {
-    background-color: #808080;
-}
