@@ -297,9 +297,11 @@ it("initialises and cleans up a Cytoscape graph", async () => {
   });
   resizeObserverInstances().at(-1)?.trigger(container);
 
-  expect(container.style.height).toBe("200px");
-  expect(core.resize).toHaveBeenCalledTimes(1);
-  expect(core.fit).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(container.style.height).toBe("200px");
+    expect(core.resize).toHaveBeenCalledTimes(1);
+    expect(core.fit).toHaveBeenCalledTimes(1);
+  });
 
   unmount();
 
