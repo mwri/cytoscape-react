@@ -1,25 +1,52 @@
 {
   "name": "cytoscape-react",
   "version": "4.0.0",
-  "description": "Cytoscape react component",
+  "description": "React components for Cytoscape graphs with DOM-backed nodes",
   "keywords": [
     "cytoscape",
-    "react"
+    "react",
+    "graph",
+    "typescript"
   ],
   "author": {
     "name": "Michael Wright",
     "email": "mjw@methodanalysis.com"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./index.css": "./dist/index.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "sideEffects": [
+    "./dist/index.css"
+  ],
   "url": "https://github.com/mwri/cytoscape-react",
   "scripts": {
-    "prepublishOnly": "./node_modules/grunt-cli/bin/grunt prepublish",
-    "build": "NODE_ENV=production babel src --out-dir dist --copy-files",
-    "lint": "eslint src --ext .jsx,.js --max-warnings=0",
-    "format": "eslint --fix src --ext .jsx,.js",
-    "jsdoc": "jsdoc -d docs -r src"
+    "build": "tsup && cp src/index.css dist/index.css",
+    "build:demo:modern": "vite build --config demos/modern/vite.config.ts",
+    "check": "npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run build:demo:modern && npm run docs",
+    "demo:modern": "vite --config demos/modern/vite.config.ts",
+    "docs": "typedoc",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run check",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -31,30 +58,32 @@
   "homepage": "https://github.com/mwri/cytoscape-react#readme",
   "peerDependencies": {
     "cytoscape": "^3.19.0",
-    "cytoscape-dom-node": "^1.1.0",
-    "prop-types": "^15.8.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "core-js": "^3.25.0",
-    "lodash": "^4.17.21"
+    "cytoscape-dom-node": "^2.1.0",
+    "react": "^17.0.2 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.2 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.13",
-    "@babel/preset-env": "^7.18.10",
-    "@babel/preset-react": "^7.9.4",
-    "eslint": "^8.24.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-jsdoc": "^39.3.6",
-    "eslint-plugin-react": "^7.31.8",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "grunt": "^1.5.3",
-    "grunt-cli": "^1.4.3",
-    "grunt-git": "^1.1.1",
-    "jsdoc": "^3.6.11",
-    "load-grunt-tasks": "^5.1.0"
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.6.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.5",
+    "cytoscape": "^3.33.3",
+    "cytoscape-dom-node": "^2.1.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.8.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tsup": "^8.5.1",
+    "typedoc": "^0.28.19",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.11",
+    "vitest": "^4.1.5"
   }
 }
