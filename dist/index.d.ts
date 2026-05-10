@@ -3,6 +3,12 @@ import cytoscape from 'cytoscape';
 import { DomNodeOptions, DomNodeRenderer } from 'cytoscape-dom-node';
 
 /**
+ * Utils.
+ *
+ * @packageDocumentation
+ */
+
+/**
  * Props injected into `Graph`, `Node`, and `Edge` children for compatibility
  * with earlier cytoscape-react releases.
  */
