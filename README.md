@@ -7,6 +7,8 @@ Cytoscape graphs with React components as nodes.
 Cytoscape keeps ownership of graph layout, edges, selection, zooming, and
 panning.
 
+For a full working demo, see [codepen qBmbVPg](https://codepen.io/mwri/pen/qBmbVPg).
+
 ## History
 
 v5 is a conversion to typescript, which SHOULD be backwards compatible.
