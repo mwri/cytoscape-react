@@ -156,6 +156,7 @@ function Graph({
   const cytoscapeRef = useRef(null);
   const layoutRef = useRef(null);
   const layoutTimerRef = useRef(null);
+  const resizeFrameRef = useRef(null);
   const autoHeightRef = useRef(autoHeight);
   const cyParamsRef = useRef(cyParams);
   const domNodeOptionsRef = useRef(domNodeOptions);
@@ -169,6 +170,12 @@ function Graph({
       clearTimeout(layoutTimerRef.current);
       layoutTimerRef.current = null;
     }
+  }, []);
+  const clearResizeFrame = useCallback2(() => {
+    if (resizeFrameRef.current !== null) {
+      window.cancelAnimationFrame(resizeFrameRef.current);
+    }
+    resizeFrameRef.current = null;
   }, []);
   const runLayoutNow = useCallback2(() => {
     const currentCy = cytoscapeRef.current;
@@ -219,19 +226,28 @@ function Graph({
     setCytoInstance(cy);
     onReadyRef.current?.(cy, renderer);
     const resizeObserver = new ResizeObserver(() => {
-      if (autoHeightRef.current) {
-        container.style.height = `${String(
-          Math.round(container.getBoundingClientRect().width * heightRatioRef.current)
-        )}px`;
+      if (resizeFrameRef.current !== null) {
+        return;
       }
-      cy.resize();
-      if (fitOnResizeRef.current) {
-        cy.fit();
-      }
+      resizeFrameRef.current = window.requestAnimationFrame(() => {
+        resizeFrameRef.current = null;
+        if (autoHeightRef.current) {
+          container.style.height = `${String(
+            Math.round(
+              container.getBoundingClientRect().width * heightRatioRef.current
+            )
+          )}px`;
+        }
+        cy.resize();
+        if (fitOnResizeRef.current) {
+          cy.fit();
+        }
+      });
     });
     resizeObserver.observe(container);
     return () => {
       clearLayoutTimer();
+      clearResizeFrame();
       resizeObserver.disconnect();
       layoutRef.current?.stop();
       renderer.destroy();
@@ -239,7 +255,7 @@ function Graph({
       cytoscapeRef.current = null;
       setCytoInstance(null);
     };
-  }, [clearLayoutTimer]);
+  }, [clearLayoutTimer, clearResizeFrame]);
   const childProps = {
     cytoInstance,
     layout: requestLayout

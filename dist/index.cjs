@@ -185,6 +185,7 @@ function Graph({
   const cytoscapeRef = (0, import_react3.useRef)(null);
   const layoutRef = (0, import_react3.useRef)(null);
   const layoutTimerRef = (0, import_react3.useRef)(null);
+  const resizeFrameRef = (0, import_react3.useRef)(null);
   const autoHeightRef = (0, import_react3.useRef)(autoHeight);
   const cyParamsRef = (0, import_react3.useRef)(cyParams);
   const domNodeOptionsRef = (0, import_react3.useRef)(domNodeOptions);
@@ -198,6 +199,12 @@ function Graph({
       clearTimeout(layoutTimerRef.current);
       layoutTimerRef.current = null;
     }
+  }, []);
+  const clearResizeFrame = (0, import_react3.useCallback)(() => {
+    if (resizeFrameRef.current !== null) {
+      window.cancelAnimationFrame(resizeFrameRef.current);
+    }
+    resizeFrameRef.current = null;
   }, []);
   const runLayoutNow = (0, import_react3.useCallback)(() => {
     const currentCy = cytoscapeRef.current;
@@ -248,19 +255,28 @@ function Graph({
     setCytoInstance(cy);
     onReadyRef.current?.(cy, renderer);
     const resizeObserver = new ResizeObserver(() => {
-      if (autoHeightRef.current) {
-        container.style.height = `${String(
-          Math.round(container.getBoundingClientRect().width * heightRatioRef.current)
-        )}px`;
+      if (resizeFrameRef.current !== null) {
+        return;
       }
-      cy.resize();
-      if (fitOnResizeRef.current) {
-        cy.fit();
-      }
+      resizeFrameRef.current = window.requestAnimationFrame(() => {
+        resizeFrameRef.current = null;
+        if (autoHeightRef.current) {
+          container.style.height = `${String(
+            Math.round(
+              container.getBoundingClientRect().width * heightRatioRef.current
+            )
+          )}px`;
+        }
+        cy.resize();
+        if (fitOnResizeRef.current) {
+          cy.fit();
+        }
+      });
     });
     resizeObserver.observe(container);
     return () => {
       clearLayoutTimer();
+      clearResizeFrame();
       resizeObserver.disconnect();
       layoutRef.current?.stop();
       renderer.destroy();
@@ -268,7 +284,7 @@ function Graph({
       cytoscapeRef.current = null;
       setCytoInstance(null);
     };
-  }, [clearLayoutTimer]);
+  }, [clearLayoutTimer, clearResizeFrame]);
   const childProps = {
     cytoInstance,
     layout: requestLayout
