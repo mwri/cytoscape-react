@@ -128,6 +128,7 @@ export function Graph({
   const cytoscapeRef = useRef<cytoscape.Core | null>(null);
   const layoutRef = useRef<cytoscape.Layouts | null>(null);
   const layoutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resizeFrameRef = useRef<number | null>(null);
   const autoHeightRef = useRef(autoHeight);
   const cyParamsRef = useRef(cyParams);
   const domNodeOptionsRef = useRef(domNodeOptions);
@@ -142,6 +143,13 @@ export function Graph({
       clearTimeout(layoutTimerRef.current);
       layoutTimerRef.current = null;
     }
+  }, []);
+
+  const clearResizeFrame = useCallback(() => {
+    if (resizeFrameRef.current !== null) {
+      window.cancelAnimationFrame(resizeFrameRef.current);
+    }
+    resizeFrameRef.current = null;
   }, []);
 
   const runLayoutNow = useCallback(() => {
@@ -204,22 +212,33 @@ export function Graph({
     onReadyRef.current?.(cy, renderer);
 
     const resizeObserver = new ResizeObserver(() => {
-      if (autoHeightRef.current) {
-        container.style.height = `${String(
-          Math.round(container.getBoundingClientRect().width * heightRatioRef.current),
-        )}px`;
+      if (resizeFrameRef.current !== null) {
+        return;
       }
 
-      cy.resize();
-      if (fitOnResizeRef.current) {
-        cy.fit();
-      }
+      resizeFrameRef.current = window.requestAnimationFrame(() => {
+        resizeFrameRef.current = null;
+
+        if (autoHeightRef.current) {
+          container.style.height = `${String(
+            Math.round(
+              container.getBoundingClientRect().width * heightRatioRef.current,
+            ),
+          )}px`;
+        }
+
+        cy.resize();
+        if (fitOnResizeRef.current) {
+          cy.fit();
+        }
+      });
     });
 
     resizeObserver.observe(container);
 
     return () => {
       clearLayoutTimer();
+      clearResizeFrame();
       resizeObserver.disconnect();
       layoutRef.current?.stop();
       renderer.destroy();
@@ -227,7 +246,7 @@ export function Graph({
       cytoscapeRef.current = null;
       setCytoInstance(null);
     };
-  }, [clearLayoutTimer]);
+  }, [clearLayoutTimer, clearResizeFrame]);
 
   const childProps = {
     cytoInstance,
