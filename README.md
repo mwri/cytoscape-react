@@ -7,6 +7,11 @@ Cytoscape graphs with React components as nodes.
 Cytoscape keeps ownership of graph layout, edges, selection, zooming, and
 panning.
 
+## History
+
+v5 is a conversion to typescript, which SHOULD be backwards compatible.
+v4 is the latest pre typescript incarnation.
+
 ## Dependencies
 
 - Cytoscape `^3.19.0`
