@@ -1,4 +1,36 @@
+.cytoscape-react-cy-container {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.cytoscape-react-cytoscape-container,
 .cytoscape-react-nodes-and-edges {
-    position: absolute;
-    z-index: 10;
+  position: absolute;
+  inset: 0;
+}
+
+.cytoscape-react-cytoscape-container {
+  z-index: 0;
+}
+
+.cytoscape-react-nodes-and-edges {
+  z-index: 10;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.cytoscape-react-node {
+  pointer-events: none;
+}
+
+.cytoscape-react-node input,
+.cytoscape-react-node button,
+.cytoscape-react-node select,
+.cytoscape-react-node textarea,
+.cytoscape-react-node a[href],
+.cytoscape-react-node [contenteditable]:not([contenteditable="false"]),
+.cytoscape-react-node [data-cy-dom-node-interactive] {
+  pointer-events: auto;
 }
