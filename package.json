@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-react",
-  "version": "5.0.1",
+  "version": "5.0.3",
   "description": "React components for Cytoscape graphs with DOM-backed nodes",
   "keywords": [
     "cytoscape",
