@@ -6,6 +6,7 @@
 
 import {
   Children,
+  Fragment,
   cloneElement,
   isValidElement,
   type ReactElement,
@@ -48,8 +49,8 @@ export function normaliseClasses(classes?: ElementClasses): string | undefined {
 }
 
 /**
- * Clone React element children with Cytoscape compatibility props. Primitive
- * children are preserved as-is.
+ * Clone React component children with Cytoscape compatibility props. Primitive
+ * and DOM children are preserved as-is.
  */
 export function injectChildProps(
   children: ReactNode,
@@ -57,6 +58,20 @@ export function injectChildProps(
 ): ReactNode {
   return Children.map(children, (child) => {
     if (!isValidElement(child)) {
+      return child;
+    }
+
+    if (child.type === Fragment) {
+      const fragment = child as ReactElement<{ children?: ReactNode }>;
+
+      return cloneElement(
+        fragment,
+        undefined,
+        injectChildProps(fragment.props.children, props),
+      );
+    }
+
+    if (typeof child.type === "string") {
       return child;
     }
 

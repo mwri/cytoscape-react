@@ -524,15 +524,51 @@ it("normalises classes and injects compatibility props", () => {
     cytoInstance,
     layout,
   });
+  const fragmentChildren = injectChildProps(
+    <>
+      <ChildProbe />
+    </>,
+    {
+      cytoInstance,
+      layout,
+    },
+  );
   const primitiveChildren = injectChildProps("plain", {
     cytoInstance,
     layout,
   });
 
-  render(<>{children}</>);
+  render(
+    <>
+      {children}
+      {fragmentChildren}
+    </>,
+  );
 
-  screen.getByRole("button", { name: "ready" }).click();
+  screen.getAllByRole("button", { name: "ready" })[0]?.click();
 
   expect(layout).toHaveBeenCalledTimes(1);
   expect(primitiveChildren).toEqual(["plain"]);
+});
+
+it("does not inject compatibility props into DOM children", () => {
+  const cytoInstance = new FakeCore() as unknown as cytoscape.Core;
+  const layout = vi.fn();
+  const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+  const children = injectChildProps(<span>Plain DOM content</span>, {
+    cytoInstance,
+    layout,
+  });
+  let warningOutput: string | undefined;
+
+  try {
+    render(<>{children}</>);
+  } finally {
+    warningOutput = consoleError.mock.calls.flat().join(" ");
+    consoleError.mockRestore();
+  }
+
+  expect(warningOutput ?? "").not.toContain("cytoInstance");
+  expect(warningOutput ?? "").not.toContain("layout");
+  expect(screen.getByText("Plain DOM content")).toBeInTheDocument();
 });
