@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 // src/utils.ts
 import {
   Children,
+  Fragment,
   cloneElement,
   isValidElement
 } from "react";
@@ -16,6 +17,17 @@ function normaliseClasses(classes) {
 function injectChildProps(children, props) {
   return Children.map(children, (child) => {
     if (!isValidElement(child)) {
+      return child;
+    }
+    if (child.type === Fragment) {
+      const fragment = child;
+      return cloneElement(
+        fragment,
+        void 0,
+        injectChildProps(fragment.props.children, props)
+      );
+    }
+    if (typeof child.type === "string") {
       return child;
     }
     return cloneElement(

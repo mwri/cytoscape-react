@@ -52,6 +52,17 @@ function injectChildProps(children, props) {
     if (!(0, import_react.isValidElement)(child)) {
       return child;
     }
+    if (child.type === import_react.Fragment) {
+      const fragment = child;
+      return (0, import_react.cloneElement)(
+        fragment,
+        void 0,
+        injectChildProps(fragment.props.children, props)
+      );
+    }
+    if (typeof child.type === "string") {
+      return child;
+    }
     return (0, import_react.cloneElement)(
       child,
       props
